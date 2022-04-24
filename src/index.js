@@ -16,11 +16,13 @@ refs.search.addEventListener('input', debounce(handleSearch, DEBOUNCE_DELAY));
 function handleSearch(e) {
     e.preventDefault();
 
-    if(refs.search.value === ""){
+    const inputValue = e.target.value.trim();
+
+    if(inputValue === ""){
       clearData();
       return;
     }
-    fetchCountries(refs.search.value.trim()).then(fetchResponse);
+    fetchCountries(inputValue).then(fetchResponse).catch(error => Notiflix.Notify.failure(`Something went wrong - ${error}`));
 }
 
 function clearData() {
